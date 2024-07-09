@@ -1,4 +1,4 @@
-# Freedom
+# Zitadel React + NX + Tailwind
 
 Adaptation of zitadel official react sample to nx and tailwindcss.
 
