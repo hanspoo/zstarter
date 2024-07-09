@@ -1,8 +1,15 @@
 # Freedom
 
-Adaptation of zitadel official react sample but with nx
+Adaptation of zitadel official react sample to nx and tailwindcss.
 
-IN the zitadel side configure:
+Start zitadel with docker compose under zitadel-server:
+
+```
+cd zitadel-server
+docker compose up
+```
+
+In zitadel create a project and then a web app with the next redirect settings:
 
 Redirect URIs:
 `http://localhost:4200/callback`
@@ -10,7 +17,7 @@ Redirect URIs:
 Post Logout URIs:
 `http://localhost:4200/callback`
 
-Add client id in App.tsx:
+Copy the client id in App.tsx:
 
 ```
 const config: ZitadelConfig = {
@@ -20,3 +27,7 @@ client_id: '275261872742138627@cocacola',
 post_logout_redirect_uri: 'http://localhost:4200/callback',
 };
 ```
+
+Execute
+
+`nx serve freedom`
