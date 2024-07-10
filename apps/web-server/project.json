@@ -1,0 +1,24 @@
+{
+  "name": "web-server",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/web-server/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "web-server:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "web-server:build:development"
+        },
+        "production": {
+          "buildTarget": "web-server:build:production"
+        }
+      }
+    }
+  }
+}

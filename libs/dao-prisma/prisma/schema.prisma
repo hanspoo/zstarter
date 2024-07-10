@@ -1,0 +1,98 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model PrismaArticle {
+  id String @id @default(uuid())
+
+  name  String
+  email String
+
+  title String
+  intro String
+  body  String
+
+  tags  String?
+  state String?
+
+  createdBy      String?
+  organizationId String
+  comments       PrismaComment[]
+
+  organization PrismaOrganization @relation(fields: [organizationId], references: [id])
+  user         PrismaUser?        @relation(fields: [createdBy], references: [id])
+
+  createdAt  DateTime @default(now()) @db.Timestamptz(6)
+  modifiedAt DateTime @default(now()) @db.Timestamptz(6)
+
+  @@map("article")
+}
+
+model PrismaComment {
+  id   String @id @default(uuid())
+  body String
+
+  articleId String
+  createdBy String
+
+  article PrismaArticle @relation(fields: [articleId], references: [id])
+  user    PrismaUser    @relation(fields: [createdBy], references: [id])
+
+  createdAt  DateTime @default(now()) @db.Timestamptz(6)
+  modifiedAt DateTime @default(now()) @db.Timestamptz(6)
+
+  @@map("comment")
+}
+
+model PrismaOrganization {
+  id String @id @default(uuid())
+
+  email       String
+  name        String
+  host        String
+  state       String
+  coments     String?
+  phone       String
+  theme       String
+  zitadelOrg  String
+  clientId    String
+  callbackUrl String?
+
+  active Boolean
+
+  users    PrismaUser[]
+  articles PrismaArticle[]
+
+  createdAt  DateTime @default(now()) @db.Timestamptz(6)
+  modifiedAt DateTime @default(now()) @db.Timestamptz(6)
+
+  @@unique([name])
+  @@map("organization")
+}
+
+model PrismaUser {
+  id String @id @default(uuid())
+
+  name           String
+  email          String
+  coments        String?
+  phone          String
+  active         Boolean
+  organizationId String
+
+  articles          PrismaArticle[]
+  articlesCommented PrismaComment[]
+
+  organization PrismaOrganization @relation(fields: [organizationId], references: [id])
+
+  createdAt  DateTime @default(now()) @db.Timestamptz(6)
+  modifiedAt DateTime @default(now()) @db.Timestamptz(6)
+
+  @@unique([email, organizationId])
+  @@map("user")
+}

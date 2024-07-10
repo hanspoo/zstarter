@@ -1,3 +1,4 @@
+import { Footer, Navbar } from '@freedom/components';
 import { Navigate } from 'react-router-dom';
 
 type Props = {
@@ -7,6 +8,7 @@ type Props = {
 const Login = ({ authenticated, handleLogin }: Props) => {
   return (
     <div>
+      <Navbar />
       {authenticated === null && <div>Loading...</div>}
       {authenticated === false && (
         <div>
@@ -22,6 +24,7 @@ const Login = ({ authenticated, handleLogin }: Props) => {
         </div>
       )}
       {authenticated && <Navigate to="/callback" />}
+      <Footer />
     </div>
   );
 };

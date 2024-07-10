@@ -15,6 +15,10 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@freedom/api-interfaces": ["libs/api-interfaces/src/index.ts"],
+      "@freedom/components": ["libs/components/src/index.ts"],
+      "@freedom/dao-prisma": ["libs/dao-prisma/src/index.ts"],
+      "@freedom/redux-store": ["libs/redux-store/src/index.ts"],
       "@freedom/zitadel-r": ["libs/zitadel-r/src/index.ts"],
       "@zitadel/react": ["libs/zitadel-r/src/index.ts"]
     }

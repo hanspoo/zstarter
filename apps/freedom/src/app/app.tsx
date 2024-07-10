@@ -40,13 +40,7 @@ function App() {
   }, [zitadel]);
 
   return (
-    <div className="h-screen max-w-[1280px] bg-sky-800 text-white m-auto flex flex-col items-center justify-center">
-      <button>
-        <a href="/">Reload</a>
-      </button>
-      <img src={logo} className="w-48" alt="logo" />
-      <p>Welcome to ZITADEL React</p>
-
+    <div>
       <BrowserRouter>
         <Routes>
           <Route
