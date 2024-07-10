@@ -68,6 +68,11 @@ const Callback = ({
         <button className="btn" onClick={handleLogout}>
           Log out
         </button>
+        <div>
+          <button className="btn">
+            <Link to="/admin">Continuar al sitio de administración</Link>
+          </button>
+        </div>
       </div>
     );
   } else {
