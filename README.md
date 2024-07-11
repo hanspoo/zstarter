@@ -1,33 +1,22 @@
 # Zitadel React + NX + Tailwind
 
-Adaptation of zitadel official react sample to nx and tailwindcss.
+This is a multi tenancy project, each organization with its independent space, using zitadel as the authentication provider.
 
-Start zitadel with docker compose under zitadel-server:
+Each organization is created in zitadel and in the app's database.
 
-```
-cd zitadel-server
-docker compose up
-```
+Two circuits:
 
-In zitadel create a project and then a web app with the next redirect settings:
+- A public circuit where you can enter articles anonymously.
+- A circuit where you can log in and reach a data management dashboard.
 
-Redirect URIs:
-`http://localhost:4200/callback`
+Start zitadel in docker compose under the zitadel-server folder.
 
-Post Logout URIs:
-`http://localhost:4200/callback`
+Create organizations in the database, important the host and client_id, and the zitadel daisyui theme.
 
-Copy the client id in App.tsx:
+Gotchas:
+How to determine the organization where nobody is logged in ?:
+Using the hostname of the request to look up in the database, in order to keep firefox crypto libs calm, for development
+you should use hostnames ending in localhost.
 
-```
-const config: ZitadelConfig = {
-authority: 'http://localhost:8080',
-redirect_uri: 'http://localhost:4200/callback',
-client_id: '275261872742138627@cocacola',
-post_logout_redirect_uri: 'http://localhost:4200/callback',
-};
-```
-
-Execute
-
-`nx serve freedom`
+Next:
+We need to validate the JWT in the backend, probably in express and passport.
