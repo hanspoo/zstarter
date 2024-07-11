@@ -6,14 +6,19 @@ import { Route, Routes } from 'react-router-dom';
 
 import Login from './components/Login';
 import Callback from './components/Callback';
+import { RootState } from '@freedom/redux-store';
+import { useSelector } from 'react-redux';
 
 function App() {
+  const { org } = useSelector((state: RootState) => state.config);
   const config: ZitadelConfig = {
-    authority: 'http://localhost:8080/',
-    client_id: '275414623035917827@zitadel-project',
-    redirect_uri: 'http://localhost:4200/callback',
-    post_logout_redirect_uri: 'http://localhost:4200/callback',
+    authority: import.meta.env.VITE_ZITADEL_SERVER || 'nada',
+    client_id: org?.clientId,
+    redirect_uri: `http://${org?.host}/admin/callback`,
+    post_logout_redirect_uri: `http://${org?.host}/admin/callback`,
   };
+
+  console.log({ config });
 
   const zitadel = createZitadelAuth(config);
 
@@ -22,6 +27,7 @@ function App() {
   }
 
   function signout() {
+    console.log('signout');
     zitadel.signout();
   }
 

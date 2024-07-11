@@ -4,4 +4,5 @@ export type Organization = {
   theme: string;
   callbackUrl: string;
   host: string;
+  clientId: string;
 };

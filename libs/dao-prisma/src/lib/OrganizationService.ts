@@ -30,7 +30,8 @@ function prismaToModel(dao: PrismaOrganization): Organization {
     name: dao.name,
     theme: dao.theme,
     callbackUrl: '',
-    host: '',
+    host: dao.host,
+    clientId: dao.clientId,
   };
   return d;
 }

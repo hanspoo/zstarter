@@ -10,16 +10,16 @@
       "executor": "@nx/vite:dev-server",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "freedom:build"
+        "buildTarget": "front:build"
       },
       "configurations": {
         "development": {
           "proxyConfig": "proxy.conf.json",
-          "buildTarget": "freedom:build:development",
+          "buildTarget": "front:build:development",
           "hmr": true
         },
         "production": {
-          "buildTarget": "freedom:build:production",
+          "buildTarget": "front:build:production",
           "hmr": false
         }
       }

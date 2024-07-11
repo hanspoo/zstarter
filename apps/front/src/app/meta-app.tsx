@@ -1,6 +1,6 @@
 import { Footer, LandingHome, Navbar } from '@freedom/components';
 import { Route, Routes } from 'react-router-dom';
-import App from './app';
+import App from './borrame';
 import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
@@ -8,13 +8,16 @@ import { createZitadelAuth, ZitadelConfig } from '@zitadel/react';
 
 import Login from './components/Login';
 import Callback from './components/Callback';
+import { RootState } from '@freedom/redux-store';
+import { useSelector } from 'react-redux';
 
 export function MetaApp() {
+  const { org } = useSelector((state: RootState) => state.config);
   const config: ZitadelConfig = {
-    authority: 'http://localhost:8080/',
-    client_id: '275414623035917827@zitadel-project',
-    redirect_uri: 'http://localhost:4200/admin/callback',
-    post_logout_redirect_uri: 'http://localhost:4200/admin/callback',
+    authority: import.meta.env.VITE_ZITADEL_SERVER || 'nada',
+    client_id: org?.clientId,
+    redirect_uri: `http://${org?.host}/admin/callback`,
+    post_logout_redirect_uri: `http://${org?.host}/admin/callback`,
   };
 
   const zitadel = createZitadelAuth(config);
