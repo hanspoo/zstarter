@@ -45,13 +45,13 @@ function App() {
 
         <Routes>
           <Route
-            path="/"
+            index
             element={
               <Login authenticated={authenticated} handleLogin={login} />
             }
           />
           <Route
-            path="/callback"
+            path="/admin/callback"
             element={
               <Callback
                 authenticated={authenticated}
