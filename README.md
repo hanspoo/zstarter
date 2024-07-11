@@ -1,4 +1,6 @@
-# Zitadel React + NX + Tailwind
+# Multi tenancy
+
+Tech Stack: react, nx, zitadel, tailwind
 
 This is a multi tenancy project, each organization with its independant space
 
