@@ -3,7 +3,7 @@ import { BuildingLibraryIcon } from '@heroicons/react/24/solid';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-export function Navbar({ conLogin = true }: { conLogin?: boolean }) {
+export function Navbar() {
   const { org } = useSelector((state: RootState) => state.config);
   return (
     <div className="navbar bg-base-300">

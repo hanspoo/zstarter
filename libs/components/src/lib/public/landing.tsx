@@ -1,5 +1,4 @@
-import Link from 'next/link';
-import { Layout } from './layout';
+import { Link } from 'react-router-dom';
 
 export function LandingHome() {
   return (
@@ -14,7 +13,7 @@ export function LandingHome() {
             <a href="#"> Tipos de articles</a>.
           </p>
 
-          <Link className="mb-6 btn btn-primary" href="/article">
+          <Link className="mb-6 btn btn-primary" to="/article">
             Ingresar Article
           </Link>
 
@@ -28,7 +27,3 @@ export function LandingHome() {
     </div>
   );
 }
-
-LandingHome.getLayout = function getLayout(page: any) {
-  return <Layout>{page}</Layout>;
-};

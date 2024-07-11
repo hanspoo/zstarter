@@ -1,71 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
-
-import { createZitadelAuth, ZitadelConfig } from '@freedom/zitadel-r';
-import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
-
-import Login from './components/Login';
-import Callback from './components/Callback';
+import { Footer, Navbar } from '@freedom/components';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { AdminHome } from './AdminHome';
-import { LogoutLanding } from './LogoutLanding';
+import RealApp from './real-app';
 
-function App() {
-  const config: ZitadelConfig = {
-    authority: 'http://localhost:8080',
-    redirect_uri: 'http://localhost:4200/callback',
-    client_id: '275261872742138627@cocacola',
-    post_logout_redirect_uri: 'http://localhost:4200/callback',
-  };
-
-  const zitadel = createZitadelAuth(config);
-
-  function login() {
-    zitadel.authorize();
-  }
-
-  function signout() {
-    zitadel.signout();
-  }
-
-  const [authenticated, setAuthenticated] = useState<boolean | null>(null);
-
-  useEffect(() => {
-    zitadel.userManager.getUser().then((user) => {
-      if (user) {
-        setAuthenticated(true);
-      } else {
-        setAuthenticated(false);
-      }
-    });
-  }, [zitadel]);
-
+export function App() {
   return (
-    <div>
-      <BrowserRouter>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Login authenticated={authenticated} handleLogin={login} />
-            }
-          />
-          <Route path="/admin" element={<AdminHome />} />
-          <Route path="/logout" element={<LogoutLanding signout={signout} />} />
-          <Route
-            path="/callback"
-            element={
-              <Callback
-                authenticated={authenticated}
-                setAuth={setAuthenticated}
-                handleLogout={signout}
-                userManager={zitadel.userManager}
-              />
-            }
-          />
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <BrowserRouter>
+      <div className="h-screen w-full m-auto max-w-[1280px] flex flex-col justify-between items-center">
+        <div className="w-full">
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<PublicLanding />}></Route>
+            <Route path="/admin" element={<RealApp />} />
+          </Routes>
+        </div>
+        <Footer />
+      </div>
+    </BrowserRouter>
   );
 }
 
-export default App;
+function PublicLanding() {
+  return (
+    <div>
+      <h1 className="text-2xl my-4 font-bold">Canal de denuncias</h1>
+    </div>
+  );
+}

@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
-import { UserManager, User } from 'oidc-client-ts';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { UserManager, User } from "oidc-client-ts";
 
 type Props = {
   authenticated: boolean | null;
@@ -57,32 +56,21 @@ const Callback = ({
         <p className="description">Your ZITADEL Profile Information</p>
         <p>Name: {userInfo.profile.name}</p>
         <p>Email: {userInfo.profile.email}</p>
-        <p>Email Verified: {userInfo.profile.email_verified ? 'Yes' : 'No'}</p>
+        <p>Email Verified: {userInfo.profile.email_verified ? "Yes" : "No"}</p>
         <p>
-          Roles:{' '}
+          Roles:{" "}
           {JSON.stringify(
-            userInfo.profile['urn:zitadel:iam:org:project:roles']
+            userInfo.profile[
+              "urn:zitadel:iam:org:project:roles"
+            ]
           )}
         </p>
 
-        <button className="btn" onClick={handleLogout}>
-          Log out
-        </button>
-        <div>
-          <button className="btn">
-            <Link to="/admin">Continuar al sitio de administración</Link>
-          </button>
-        </div>
+        <button onClick={handleLogout}>Log out</button>
       </div>
     );
   } else {
-    return (
-      <div>
-        <button className="btn">
-          <Link to="/">Continuar</Link>
-        </button>
-      </div>
-    );
+    return <div>Loading...</div>;
   }
 };
 
