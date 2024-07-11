@@ -12,9 +12,8 @@ export class ArticlesFinder {
 
 function prismaToModel(dao: PrismaArticle): Article {
   const d: Article = {
-    title: dao.title,
-    body: dao.body || '',
-    intro: dao.intro,
+    phone: dao.phone,
+    coments: dao.coments,
     name: dao.name,
     email: dao.email,
   };

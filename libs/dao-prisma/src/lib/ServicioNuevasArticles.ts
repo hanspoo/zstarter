@@ -1,26 +1,20 @@
-import {
-  CrearArticleRequest,
-  Article,
-  Organization,
-} from '@freedom/api-interfaces';
-import { PrismaClient } from '@prisma/client';
+import { CrearArticleRequest, Article } from '@freedom/api-interfaces';
+import { PrismaClient, PrismaOrganization } from '@prisma/client';
 
-export class ArticlesService {
-  async crearArticle(data: CrearArticleRequest): Promise<Article> {
-    const { phone, coments, name, email } = data;
+export class ServicioNuevasArticles {
+  async crearArticle(organization: PrismaOrganization): Promise<Article> {
+    const { name, phone, coments, email } = this.data;
 
     const prisma = new PrismaClient();
 
     const ped = await prisma.prismaArticle.create({
       data: {
         createdAt: new Date(),
-
+        name,
         phone,
         coments,
-
-        name,
         email,
-        organizationId: this.organization.id,
+        organizationId: organization.id,
       },
     });
 
@@ -35,5 +29,5 @@ export class ArticlesService {
 
     return articlex as any as Article;
   }
-  constructor(public organization: Organization) {}
+  constructor(public data: CrearArticleRequest) {}
 }

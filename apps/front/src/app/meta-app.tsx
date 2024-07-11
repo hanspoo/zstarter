@@ -1,9 +1,8 @@
-import { Footer, LandingHome, Navbar } from '@freedom/components';
+import { Footer, FormArticle, LandingHome, Navbar } from '@freedom/components';
 import { Route, Routes } from 'react-router-dom';
-import App from './borrame';
+
 import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
-import './App.css';
+
 import { createZitadelAuth, ZitadelConfig } from '@zitadel/react';
 
 import Login from './components/Login';
@@ -48,6 +47,7 @@ export function MetaApp() {
         <Navbar />
         <Routes>
           <Route path="/" element={<LandingHome />} />
+          <Route path="/article" element={<FormArticle />} />
           <Route path="/admin/*">
             <Route
               path=""

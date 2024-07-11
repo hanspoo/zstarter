@@ -1,3 +1,5 @@
+export { ServicioNuevasArticles } from './lib/ServicioNuevasArticles';
+
 export { BootupService } from './lib/BootupService';
 
 export { OrganizationService } from './lib/OrganizationService';

@@ -1,6 +1,11 @@
 import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
-import { OrganizationService } from '@freedom/dao-prisma';
+import {
+  OrganizationService,
+  ServicioNuevasArticles,
+} from '@freedom/dao-prisma';
+import { CrearArticleRequest } from '@freedom/api-interfaces';
+// import { ArticleMailerService } from '@freedom/services';
 
 type ReqWithSession = Request<
   unknown,
@@ -63,6 +68,32 @@ app.get('/api/org-info', async (req, res) => {
     if (!org) throw Error(`organización ${hostName} no encontrada`);
 
     res.send(org);
+  } catch (error) {
+    return res
+      .status(400)
+      .send({ message: error.message || 'Error no definido' });
+  }
+});
+
+app.post('/api/articles', async (req, res) => {
+  const hostName = req.headers.host;
+  if (!hostName) {
+    throw Error('Hostname no está definido');
+  }
+  try {
+    const org = await new OrganizationService().findPrismaOrgByHostName(
+      hostName
+    );
+    if (!org) throw Error(`organización ${hostName} no encontrada`);
+
+    const data: CrearArticleRequest = req.body;
+
+    //if (!postgresDataSource.isInitialized) await postgresDataSource.initialize();
+    const servicio = new ServicioNuevasArticles(data);
+    const article = await servicio.crearArticle(org);
+    // const mailer = new ArticleMailerService(article);
+    // await mailer.notificarComprador();
+    res.status(200).send(article);
   } catch (error) {
     return res
       .status(400)
