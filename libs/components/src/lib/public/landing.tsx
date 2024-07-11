@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 export function LandingHome() {
   return (
-    <div className="hero min-h-96 my-20">
+    <div className="hero my-20 mx-0">
       <div className="hero-content text-left">
         <div className="max-w-md">
           <h1 className="text-4xl font-bold">Canal de Articles</h1>

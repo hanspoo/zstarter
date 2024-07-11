@@ -1,75 +1,30 @@
-import { Footer, FormArticle, LandingHome, Navbar } from '@freedom/components';
-import { Route, Routes } from 'react-router-dom';
-
-import React, { useEffect, useState } from 'react';
-
-import { createZitadelAuth, ZitadelConfig } from '@zitadel/react';
-
-import Login from './components/Login';
-import Callback from './components/Callback';
-import { RootState } from '@freedom/redux-store';
-import { useSelector } from 'react-redux';
+import { AuthProvider } from 'react-oidc-context';
+import { App } from './app';
+import { useContext, useMemo } from 'react';
+import { OrgContext } from '@freedom/components';
 
 export function MetaApp() {
-  const { org } = useSelector((state: RootState) => state.config);
-  const config: ZitadelConfig = {
-    authority: import.meta.env.VITE_ZITADEL_SERVER || 'nada',
-    client_id: org?.clientId,
-    redirect_uri: `http://${org?.host}/admin/callback`,
-    post_logout_redirect_uri: `http://${org?.host}/admin/callback`,
-  };
+  const { org } = useContext(OrgContext);
 
-  const zitadel = createZitadelAuth(config);
+  const oidcConfig = useMemo(() => {
+    return {
+      authority: import.meta.env.VITE_ZITADEL_SERVER || 'nada',
+      client_id: org?.clientId,
+      redirect_uri: `http://${org?.host}`,
+      post_logout_redirect_uri: `http://${org?.host}`,
+    };
+  }, []);
 
-  function login() {
-    zitadel.authorize();
-  }
-
-  function signout() {
-    zitadel.signout();
-  }
-
-  const [authenticated, setAuthenticated] = useState<boolean | null>(null);
-
-  useEffect(() => {
-    zitadel.userManager.getUser().then((user) => {
-      if (user) {
-        setAuthenticated(true);
-      } else {
-        setAuthenticated(false);
-      }
-    });
-  }, [zitadel]);
-
-  return (
-    <div className="flex h-screen flex-col justify-between">
-      <div>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<LandingHome />} />
-          <Route path="/article" element={<FormArticle />} />
-          <Route path="/admin/*">
-            <Route
-              path=""
-              element={
-                <Login authenticated={authenticated} handleLogin={login} />
-              }
-            />
-            <Route
-              path="callback"
-              element={
-                <Callback
-                  authenticated={authenticated}
-                  setAuth={setAuthenticated}
-                  handleLogout={signout}
-                  userManager={zitadel.userManager}
-                />
-              }
-            />
-          </Route>
-        </Routes>
+  if (!org)
+    return (
+      <div className="flex flex-col mt-10 w-full items-center">
+        No se ha encontrado la org
       </div>
-      <Footer />
-    </div>
+    );
+  console.log({ oidcConfig });
+  return (
+    <AuthProvider {...oidcConfig}>
+      <App />
+    </AuthProvider>
   );
 }

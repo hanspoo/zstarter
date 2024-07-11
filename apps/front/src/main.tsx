@@ -1,9 +1,8 @@
 import { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
 
+import { BrowserRouter } from 'react-router-dom';
 import { MetaApp } from './app/meta-app';
-import { StoreProvider } from '@freedom/redux-store';
 import { OrgProvider } from '@freedom/components';
 
 const root = ReactDOM.createRoot(
@@ -11,12 +10,10 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <StrictMode>
-    <StoreProvider>
+    <BrowserRouter>
       <OrgProvider>
-        <BrowserRouter>
-          <MetaApp />
-        </BrowserRouter>
+        <MetaApp />
       </OrgProvider>
-    </StoreProvider>
+    </BrowserRouter>
   </StrictMode>
 );

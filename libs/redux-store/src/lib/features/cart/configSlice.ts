@@ -1,11 +1,10 @@
 import { Organization } from '@freedom/api-interfaces';
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { RestStatus } from './RestStatus.1';
 
 export const fetchOrg = createAsyncThunk('api/org-info', () => {
   return fetch('/api/org-info').then((r) => r.json());
 });
-export type RestStatus = 'idle' | 'pending' | 'fulfilled' | 'rejected';
-
 type StateType = {
   org?: Organization;
   theme: string;

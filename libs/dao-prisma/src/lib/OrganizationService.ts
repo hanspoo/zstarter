@@ -1,5 +1,6 @@
 import { Organization } from '@freedom/api-interfaces';
-import { PrismaOrganization, PrismaClient } from '@prisma/client';
+import { PrismaOrganization } from '@prisma/client';
+import { prismaAccess } from './PrismaAccess';
 
 export class OrganizationService {
   async findByHostName(host: string): Promise<Organization | null> {
@@ -14,9 +15,7 @@ export class OrganizationService {
   async findPrismaOrgByHostName(
     host: string
   ): Promise<PrismaOrganization | null> {
-    const prisma = new PrismaClient();
-
-    return await prisma.prismaOrganization.findFirst({
+    return await prismaAccess.prismaOrganization.findFirst({
       where: {
         host,
       },

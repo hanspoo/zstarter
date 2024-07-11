@@ -1,13 +1,12 @@
 import { CrearArticleRequest, Article } from '@freedom/api-interfaces';
-import { PrismaClient, PrismaOrganization } from '@prisma/client';
+import { PrismaOrganization } from '@prisma/client';
+import { prismaAccess } from './PrismaAccess';
 
 export class ServicioNuevasArticles {
   async crearArticle(organization: PrismaOrganization): Promise<Article> {
     const { name, phone, coments, email } = this.data;
 
-    const prisma = new PrismaClient();
-
-    const ped = await prisma.prismaArticle.create({
+    const ped = await prismaAccess.prismaArticle.create({
       data: {
         createdAt: new Date(),
         name,
@@ -18,7 +17,7 @@ export class ServicioNuevasArticles {
       },
     });
 
-    const articlex = await prisma.prismaArticle.findFirstOrThrow({
+    const articlex = await prismaAccess.prismaArticle.findFirstOrThrow({
       where: {
         id: ped.id,
       },

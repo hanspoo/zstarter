@@ -193,7 +193,7 @@ export const FormArticle = () => {
 
 function Enviando() {
   return (
-    <Alert className="my-2 border-2 rounded-md p-4 bg-sky-100">
+    <Alert className="my-2 border-2 rounded-md p-4 bg-secondary">
       <p className="mb-4">Se está enviando el formulario, espere un momento.</p>
       <Loading />
     </Alert>

@@ -1,25 +1,23 @@
-import React, { useEffect } from 'react';
-import { RootState } from '@freedom/redux-store';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchOrg } from '@freedom/redux-store';
+import React from 'react';
+import useSWR from 'swr';
+
+import { Loading } from './utils/loading';
+import { OrgContext } from './contexts/OrgContext';
+import { Organization } from '@freedom/api-interfaces';
+import { fetcher } from './fetcher';
 import { Centered } from './utils/Centered';
 
 export function OrgProvider({ children }: React.PropsWithChildren) {
-  const dispatch = useDispatch();
-  const { status, org } = useSelector((state: RootState) => state.config);
+  const { data, error, isLoading } = useSWR('/api/org-info', fetcher);
 
-  console.log({ status });
-  useEffect(() => {
-    if (status === 'idle') {
-      dispatch(fetchOrg() as any);
-    }
-  }, []);
+  if (isLoading) return <Loading />;
+  if (error) return <Centered>{error.message}</Centered>;
 
-  if (status === 'rejected')
-    return <Centered>Error al cargar página (1)</Centered>;
-  if (status === 'pending') return null;
-  if (status === 'idle') return null;
-  if (!org) return <Centered>Error interno, no hay organización</Centered>;
-
-  return <div data-theme={org.theme}>{children}</div>;
+  return (
+    <OrgContext.Provider
+      value={{ org: data as Organization, theme: data.theme }}
+    >
+      <div data-theme={data.theme}>{children}</div>
+    </OrgContext.Provider>
+  );
 }
