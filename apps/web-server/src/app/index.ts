@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 dotenv.config();
-import axios from 'axios';
+
 import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import {
@@ -13,7 +13,7 @@ import { CrearArticleRequest } from '@freedom/api-interfaces';
 
 import passport from 'passport';
 import { ZitadelIntrospectionStrategy } from 'passport-zitadel';
-import { ZitadelIntrospectionResponse } from './ZitadelIntrospectionResponse';
+
 import { customMiddleware } from './customMiddleware';
 
 // Register the strategy with the correct configuration.
@@ -53,44 +53,13 @@ passport.use(
 
 app.use(passport.initialize());
 
-// app.use((req: Request, res: Response, next: NextFunction) => {
-//   console.log(req.url);
+app.use((req: Request, res: Response, next: NextFunction) => {
+  console.log(req.url);
 
-//   next();
-// });
+  next();
+});
 app.use(express.json());
 app.use(express.static('../front'));
-const authMiddleware = async function (
-  req: ReqWithSession,
-  res: Response,
-  next: NextFunction
-) {
-  const authorization = req.headers['authorization'];
-  if (authorization) {
-    const [, token] = authorization.trim().split(/ /);
-    console.log(token);
-    if (token) {
-      return next();
-    } else {
-      return res.sendStatus(401);
-    }
-  } else {
-    console.log('Petición sin token: ' + req.url);
-    return res.sendStatus(401);
-  }
-};
-
-// const debugMiddleware = async function (
-//   req: ReqWithSession,
-//   res: Response,
-//   next: NextFunction
-// ) {
-//   const authorization = req.headers['authorization'];
-//   console.log({ authorization, url: req.url });
-//   next();
-// };
-
-// app.use(debugMiddleware);
 
 app.get('/api', (req, res) => {
   res.send({ message: 'Welcome to the api!' });
@@ -113,28 +82,6 @@ app.get('/api/org-info', async (req, res) => {
   }
 });
 
-// function authorized(request, response, next) {
-//   passport.authenticate(
-//     'zitadel-introspection',
-//     { session: false },
-//     async (error, token) => {
-//       if (error || !token) {
-//         console.log({ error });
-//         response.status(401).json({ message: 'Unauthorized Message' });
-//       }
-//       try {
-//         console.log('token', token);
-//         //const user = await User.findOne({ _id: token._id });
-//         //request.user = user;
-//       } catch (error) {
-//         next(error);
-//       }
-//       next();
-//     }
-//   )(request, response, next);
-// }
-
-//app.use('/api/articles', authorized);
 app.post('/api/articles', async (req, res) => {
   const hostName = req.headers.host;
   if (!hostName) {
@@ -150,7 +97,6 @@ app.post('/api/articles', async (req, res) => {
 
     const data: CrearArticleRequest = req.body;
 
-    //if (!postgresDataSource.isInitialized) await postgresDataSource.initialize();
     const servicio = new ServicioNuevasArticles(data);
     const article = await servicio.crearArticle(org);
     // const mailer = new ArticleMailerService(article);
@@ -162,11 +108,6 @@ app.post('/api/articles', async (req, res) => {
       .send({ message: error.message || 'Error no definido' });
   }
 });
-
-// app.use(
-//   '/api/admin/articles',
-//   passport.authenticate('zitadel-introspection', { session: false })
-// );
 
 app.get('/api/admin/articles', customMiddleware, async (req, res) => {
   const articles = await new ArticlesFinder(req['org']).findAll();
