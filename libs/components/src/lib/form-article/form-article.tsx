@@ -75,7 +75,7 @@ export const FormArticle = () => {
 
   return (
     <div className="my-10 px-2 max-w-screen-lg m-auto">
-      <h1 className="my-2 mb-4 font-bold text-2xl">Ingresar Article</h1>
+      <h1 className="my-2 mb-4 font-bold text-2xl">New Article</h1>
 
       <Formik
         initialValues={{
@@ -93,8 +93,8 @@ export const FormArticle = () => {
         {({ errors, touched }) => (
           <Form className="flex flex-col">
             <div className="mb-6">
-              Completa la información y presiona Enviar. Se enviará un correo de
-              confirmación con los datos de la article.
+              Fill out the information and press Submit, a confirmation email
+              will be sent to you.
             </div>
             {enviando &&
               (error ? (
@@ -182,7 +182,7 @@ export const FormArticle = () => {
               className="btn btn-primary"
               type="submit"
             >
-              Enviar
+              Send
             </button>
           </Form>
         )}
