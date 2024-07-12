@@ -1,11 +1,15 @@
-import { Article } from '@freedom/api-interfaces';
-import { PrismaArticle, PrismaClient } from '@prisma/client';
+import { Article, Organization } from '@freedom/api-interfaces';
+import { PrismaArticle } from '@prisma/client';
+import { prismaAccess } from './PrismaAccess';
 
 export class ArticlesFinder {
+  constructor(public org: Organization) {}
   async findAll(): Promise<Article[]> {
-    const prisma = new PrismaClient();
-
-    const articles = await prisma.prismaArticle.findMany();
+    const articles = await prismaAccess.prismaArticle.findMany({
+      where: {
+        organizationId: this.org.id,
+      },
+    });
     return articles.map((d) => prismaToModel(d));
   }
 }
@@ -16,6 +20,7 @@ function prismaToModel(dao: PrismaArticle): Article {
     coments: dao.coments,
     name: dao.name,
     email: dao.email,
+    date: dao.createdAt.getTime(),
   };
   return d;
 }

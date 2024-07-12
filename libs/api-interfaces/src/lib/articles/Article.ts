@@ -3,4 +3,5 @@ export type Article = {
   coments: string;
   phone: string;
   email: string;
+  date: number;
 };

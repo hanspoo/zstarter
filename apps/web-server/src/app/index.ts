@@ -1,11 +1,24 @@
+import dotenv from 'dotenv';
+dotenv.config();
+import axios from 'axios';
 import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import {
+  ArticlesFinder,
   OrganizationService,
   ServicioNuevasArticles,
 } from '@freedom/dao-prisma';
 import { CrearArticleRequest } from '@freedom/api-interfaces';
 // import { ArticleMailerService } from '@freedom/services';
+
+import passport from 'passport';
+import { ZitadelIntrospectionStrategy } from 'passport-zitadel';
+import { ZitadelIntrospectionResponse } from './ZitadelIntrospectionResponse';
+import { customMiddleware } from './customMiddleware';
+
+// Register the strategy with the correct configuration.
+
+// console.log({ zArgs });
 
 type ReqWithSession = Request<
   unknown,
@@ -27,6 +40,18 @@ app.use(
     credentials: true,
   })
 );
+passport.use(
+  new ZitadelIntrospectionStrategy({
+    authority: process.env.ZITADEL_ISSUER,
+    authorization: {
+      type: 'basic',
+      clientId: process.env.ZITADEL_API_CLIENT_ID,
+      clientSecret: process.env.ZITADEL_API_SECRET,
+    },
+  })
+);
+
+app.use(passport.initialize());
 
 // app.use((req: Request, res: Response, next: NextFunction) => {
 //   console.log(req.url);
@@ -43,6 +68,7 @@ const authMiddleware = async function (
   const authorization = req.headers['authorization'];
   if (authorization) {
     const [, token] = authorization.trim().split(/ /);
+    console.log(token);
     if (token) {
       return next();
     } else {
@@ -53,6 +79,18 @@ const authMiddleware = async function (
     return res.sendStatus(401);
   }
 };
+
+// const debugMiddleware = async function (
+//   req: ReqWithSession,
+//   res: Response,
+//   next: NextFunction
+// ) {
+//   const authorization = req.headers['authorization'];
+//   console.log({ authorization, url: req.url });
+//   next();
+// };
+
+// app.use(debugMiddleware);
 
 app.get('/api', (req, res) => {
   res.send({ message: 'Welcome to the api!' });
@@ -75,11 +113,35 @@ app.get('/api/org-info', async (req, res) => {
   }
 });
 
+// function authorized(request, response, next) {
+//   passport.authenticate(
+//     'zitadel-introspection',
+//     { session: false },
+//     async (error, token) => {
+//       if (error || !token) {
+//         console.log({ error });
+//         response.status(401).json({ message: 'Unauthorized Message' });
+//       }
+//       try {
+//         console.log('token', token);
+//         //const user = await User.findOne({ _id: token._id });
+//         //request.user = user;
+//       } catch (error) {
+//         next(error);
+//       }
+//       next();
+//     }
+//   )(request, response, next);
+// }
+
+//app.use('/api/articles', authorized);
 app.post('/api/articles', async (req, res) => {
   const hostName = req.headers.host;
   if (!hostName) {
     throw Error('Hostname no está definido');
   }
+
+  console.log('user ', req['user']);
   try {
     const org = await new OrganizationService().findPrismaOrgByHostName(
       hostName
@@ -99,6 +161,17 @@ app.post('/api/articles', async (req, res) => {
       .status(400)
       .send({ message: error.message || 'Error no definido' });
   }
+});
+
+// app.use(
+//   '/api/admin/articles',
+//   passport.authenticate('zitadel-introspection', { session: false })
+// );
+
+app.get('/api/admin/articles', customMiddleware, async (req, res) => {
+  const articles = await new ArticlesFinder(req['org']).findAll();
+
+  res.status(200).send(articles);
 });
 
 export { app };

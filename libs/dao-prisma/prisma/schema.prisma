@@ -57,6 +57,8 @@ model PrismaOrganization {
   zitadelOrg  String
   clientId    String
   callbackUrl String?
+  apiUser     String?
+  apiPassword String?
 
   active Boolean
 

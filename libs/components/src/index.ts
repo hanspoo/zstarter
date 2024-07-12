@@ -1,3 +1,5 @@
+export { Dashboard } from './lib/admin/Dashboard';
+
 export { PleaseLogin } from './lib/PleaseLogin';
 
 export { LogoutLanding } from './lib/LogoutLanding';

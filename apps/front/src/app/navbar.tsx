@@ -8,7 +8,10 @@ export function Navbar({ loginSection = true }: { loginSection?: boolean }) {
   return (
     <div className="navbar bg-base-200 rounded-md mt-1 flex justify-between w-full">
       <div>
-        <a href="/" className="btn btn-ghost bg-base-100 text-xl">
+        <a
+          href={loginSection ? '/admin' : '/'}
+          className="btn btn-ghost bg-base-100 text-xl"
+        >
           {org?.name || '-- sin org'}
         </a>
       </div>
