@@ -5,6 +5,7 @@
   "scripts": {},
   "private": true,
   "dependencies": {
+    "@hanspoo/global-types": "^0.1.8",
     "@heroicons/react": "^2.1.4",
     "@nx-tools/nx-prisma": "^6.0.1",
     "@prisma/client": "^5.16.2",

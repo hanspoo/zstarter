@@ -110,7 +110,11 @@ app.post('/api/articles', async (req, res) => {
 });
 
 app.get('/api/admin/articles', customMiddleware, async (req, res) => {
-  const articles = await new ArticlesFinder(req['org']).findAll();
+  if (!req.org)
+    res
+      .status(400)
+      .send('The organization should hava been defined by middleware');
+  const articles = await new ArticlesFinder(req.org).findAll();
 
   res.status(200).send(articles);
 });

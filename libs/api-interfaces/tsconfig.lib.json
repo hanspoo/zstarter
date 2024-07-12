@@ -5,6 +5,10 @@
     "declaration": true,
     "types": ["node"]
   },
-  "include": ["src/**/*.ts"],
+  "include": [
+    "src/**/*.ts",
+    "../../types/*.d.ts",
+    "../../apps/web-server/src/app/express.d.ts"
+  ],
   "exclude": ["src/**/*.spec.ts", "src/**/*.test.ts"]
 }

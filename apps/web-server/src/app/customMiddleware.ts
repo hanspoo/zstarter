@@ -1,8 +1,13 @@
+import { Request, Response, NextFunction } from 'express';
 import { OrganizationService } from '@freedom/dao-prisma';
 import axios from 'axios';
 import { ZitadelIntrospectionResponse } from './ZitadelIntrospectionResponse';
 
-export const customMiddleware = async (req, res, next) => {
+export const customMiddleware = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const hostName = req.headers.host;
   if (!hostName) {
     throw Error('Hostname no está definido');
@@ -35,7 +40,7 @@ export const customMiddleware = async (req, res, next) => {
       return res.status(401).send('Incorrect token');
     }
 
-    req['org'] = org;
+    req.org = org;
     next();
   } else {
     res.status(401).send('Authorization header not present');

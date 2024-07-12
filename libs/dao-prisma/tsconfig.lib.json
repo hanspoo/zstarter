@@ -1,1 +1,14 @@
-{"extends":"./tsconfig.json","compilerOptions":{"outDir":"../../dist/out-tsc","declaration":true,"types":["node"]},"include":["src/**/*.ts","../../types/*.d.ts"],"exclude":["jest.config.ts","src/**/*.spec.ts","src/**/*.test.ts"]}
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../dist/out-tsc",
+    "declaration": true,
+    "types": ["node"]
+  },
+  "include": [
+    "src/**/*.ts",
+    "../../types/*.d.ts",
+    "../../apps/web-server/src/app/express.d.ts"
+  ],
+  "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"]
+}
