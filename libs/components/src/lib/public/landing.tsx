@@ -8,8 +8,7 @@ export function LandingHome() {
           <h1 className="text-4xl font-bold">New Article</h1>
           <p className="py-6">
             We’re always looking for new guest authors and we welcome individual
-            bloggers to contribute high-quality guest posts to
-            minorityvoices.org.
+            bloggers to contribute high-quality guest posts to our web site.
           </p>
 
           <Link className="mb-6 btn btn-primary" to="/article">
