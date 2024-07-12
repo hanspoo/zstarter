@@ -45,6 +45,15 @@
         "serveTargetName": "serve",
         "previewTargetName": "preview"
       }
+    },
+    {
+      "plugin": "@nx/next/plugin",
+      "options": {
+        "startTargetName": "start",
+        "buildTargetName": "build",
+        "devTargetName": "dev",
+        "serveStaticTargetName": "serve-static"
+      }
     }
   ],
   "generators": {
@@ -62,6 +71,12 @@
         "style": "tailwind",
         "linter": "eslint",
         "unitTestRunner": "jest"
+      }
+    },
+    "@nx/next": {
+      "application": {
+        "style": "tailwind",
+        "linter": "eslint"
       }
     }
   },

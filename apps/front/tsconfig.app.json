@@ -1,1 +1,37 @@
-{"extends":"./tsconfig.json","compilerOptions":{"outDir":"../../dist/out-tsc","types":["node","@nx/react/typings/cssmodule.d.ts","@nx/react/typings/image.d.ts","vite/client"]},"exclude":["src/**/*.spec.ts","src/**/*.test.ts","src/**/*.spec.tsx","src/**/*.test.tsx","src/**/*.spec.js","src/**/*.test.js","src/**/*.spec.jsx","src/**/*.test.jsx"],"include":["src/**/*.js","src/**/*.jsx","src/**/*.ts","src/**/*.tsx","../../types/*.d.ts"]}
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../dist/out-tsc",
+    "types": [
+      "node",
+      "@nx/react/typings/cssmodule.d.ts",
+      "@nx/react/typings/image.d.ts",
+      "vite/client"
+    ]
+  },
+  "exclude": [
+    "src/**/*.spec.ts",
+    "src/**/*.test.ts",
+    "src/**/*.spec.tsx",
+    "src/**/*.test.tsx",
+    "src/**/*.spec.js",
+    "src/**/*.test.js",
+    "src/**/*.spec.jsx",
+    "src/**/*.test.jsx"
+  ],
+  "include": [
+    "src/**/*.js",
+    "src/**/*.jsx",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "../../types/*.d.ts",
+    "../../libs/components/src/lib/home/app.spec.tsx",
+    "../../libs/components/src/lib/home/app.tsx",
+    "../../libs/components/src/lib/home/auth-component.tsx",
+    "../../libs/components/src/lib/home/Authenticated.tsx",
+    "../../libs/components/src/lib/home/meta-app.tsx",
+    "../../libs/components/src/lib/home/navbar.tsx",
+    "../../libs/components/src/lib/home/nx-welcome.tsx",
+    "../../libs/components/src/lib/home/Unauthenticated.tsx"
+  ]
+}
