@@ -24,6 +24,7 @@ export class OrganizationService {
 }
 
 function prismaToModel(dao: PrismaOrganization): Organization {
+  console.log({ dao });
   const d: Organization = {
     id: dao.id,
     name: dao.name,
@@ -31,6 +32,7 @@ function prismaToModel(dao: PrismaOrganization): Organization {
     callbackUrl: '',
     host: dao.host,
     clientId: dao.clientId,
+    slug: dao.slug || 'generic',
   };
   return d;
 }

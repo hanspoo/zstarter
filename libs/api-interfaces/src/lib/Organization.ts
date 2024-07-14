@@ -5,4 +5,5 @@ export type Organization = {
   callbackUrl: string;
   host: string;
   clientId: string;
+  slug: string;
 };

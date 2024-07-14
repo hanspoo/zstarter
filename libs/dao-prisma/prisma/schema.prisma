@@ -59,6 +59,7 @@ model PrismaOrganization {
   callbackUrl String?
   apiUser     String?
   apiPassword String?
+  slug        String?
 
   active Boolean
 
