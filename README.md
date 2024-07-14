@@ -10,10 +10,11 @@ Uses zitadel as the authentication provider.
 
 Each organization is created in zitadel and in the app's database.
 
-Two circuits:
+Working apps:
 
-- A public circuit where you can enter articles anonymously.
-- A circuit where you can log in and reach a data management dashboard.
+- Public articles publishing
+- Log in with zitadel and get to the dashboard or articles.
+- Log out
 
 ## Required software
 
@@ -45,7 +46,7 @@ file:
 
 5.- Environment variables file
 
-Rename .env.sample to .env.
+Rename .env.sample to .env
 
 ## Start installation
 
