@@ -91,7 +91,7 @@ nx serve web-server
 nx serve front
 ```
 
-Contratulations
+That's it
 
 You can go to:
 http://dinobank.localhost:4200/
