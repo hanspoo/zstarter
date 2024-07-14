@@ -105,7 +105,7 @@ http://localhost:4200/
 
 Besides the name each one has a different daisyui theme.
 
-For simplicity we are using the zitadel admin user, that can log in in any organization.
+For simplicity we are using the zitadel admin user, that can log in any organization.
 
 `zitadel-admin@zitadel.localhost`
 with password
