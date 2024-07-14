@@ -3,9 +3,15 @@ services:
   db:
     image: postgres:16
     restart: always
+    networks:
+      - 'zitadel'
     env_file:
       - .env
     volumes:
       - ./dataset:/docker-entrypoint-initdb.d
     ports:
       - 5433:5432
+
+networks:
+  zitadel:
+    external: true

@@ -28,11 +28,11 @@ https://github.com/nvm-sh/nvm
 npm i -g nx
 ```
 
-3.- Install zitadel server locally
+3.- Create network to connect zitadel database and server.
 
-Follow instructions here:
-
-https://zitadel.com/docs/self-hosting/deploy/overview
+```
+docker network create zitadel
+```
 
 4.- hosts file
 
@@ -61,22 +61,22 @@ npm install
 2.- Start app database with organizations preloaded.
 
 ```
-cd zstarter-preloaded
+cd zstarter-database
 docker compose up -d
 ```
 
 3.- Start zitadel database with orgnizations preloaded
 
 ```
-cd zitadel-preloaded
+cd zitadel-database
 docker compose up -d
 ```
 
-4.- Start zitadel
+4.- Start zitadel server
 
 ```
-cd zitadel-preloaded
-./run-zitadel.sh
+cd zitadel-server
+docker compose up -d
 ```
 
 5.- Start back end express
