@@ -2,11 +2,11 @@
 
 ## Modern b2b project
 
-Tech Stack: react, express, typescript, nx, zitadel, tailwind, daisyui
+Tech Stack: react, express, typescript, nx, prisma, zitadel, tailwind, daisyui, resend and postgresql.
 
 This is a multi tenancy project, each organization with its independant space
 
-Uses zitadel as the authentication provider.
+Uses zitadel as the IDP: identity provider.
 
 Each organization is created in zitadel and in the app's database.
 
@@ -15,6 +15,8 @@ Working apps:
 - Create articles, no login required.
 - Log in with zitadel and get to a dashboard.
 - Log out
+
+...actually fixing sending email when you publish an article with resend.
 
 ## Required software
 
@@ -36,11 +38,9 @@ docker network create zitadel
 
 4.- hosts file
 
-In order for the different organizations to work, you must add two hosts to this machine. Add next line to your
+In a multi tenancy environment host names are important, moreover when you are not logged in.
 
-/etc/hosts
-
-file:
+In order for the two organizations in this sample, dinobank and dogsinc to work, you must add two hosts to this machine. Add next line to your `/etc/hosts` file:
 
 `127.0.0.1 dinobank.localhost dogsinc.localhost`
 
