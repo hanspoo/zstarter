@@ -12,8 +12,8 @@ Each organization is created in zitadel and in the app's database.
 
 Working apps:
 
-- Public articles publishing
-- Log in with zitadel and get to the dashboard or articles.
+- Create articles, no login required.
+- Log in with zitadel and get to a dashboard.
 - Log out
 
 ## Required software
