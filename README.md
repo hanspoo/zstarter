@@ -4,9 +4,7 @@
 
 Tech Stack: react, express, typescript, nx, prisma, zitadel, tailwind, daisyui, resend and postgresql.
 
-This is a multi tenancy project, each organization with its independant space
-
-Uses zitadel as the IDP: identity provider.
+This is a multi tenancy project, each organization with its independant space. Uses zitadel as the IDP: identity provider.
 
 Each organization is created in zitadel and in the app's database.
 
@@ -16,7 +14,7 @@ Working apps:
 - Log in with zitadel and get to a dashboard.
 - Log out
 
-...actually fixing sending email when you publish an article with resend.
+...actually fixing sending email with resend when you publish an article.
 
 ## Required software
 
