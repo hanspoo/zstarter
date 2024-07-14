@@ -43,6 +43,10 @@ file:
 
 `127.0.0.1 dinobank.localhost dogsinc.localhost`
 
+5.- Environment variables file
+
+Rename .env.sample to .env.
+
 ## Start installation
 
 1.- Clone and install this project
@@ -104,4 +108,8 @@ For simplicity we are using the zitadel admin user, that can log in in any organ
 with password
 `Password2!`
 
-But create more users in the other organizations, and you will see that they can only log in the respective organization.
+Go to the zitadel admin panel at:
+
+http://localhost:8080
+
+And create users in the other organizations, and you will see that they as expected can only log in where they are registered:
