@@ -50,7 +50,7 @@ Rename .env.sample to .env
 
 1.- Clone and install this project
 
-```
+```shell
 git clone https://github.com/hanspoo/zstarter
 cd zstarter
 npm install
@@ -58,34 +58,40 @@ npm install
 
 2.- Start app database with organizations preloaded.
 
-```
+```shell
 cd zstarter-database
 docker compose up -d
 ```
 
 3.- Start zitadel database with orgnizations preloaded
 
-```
+```shell
 cd zitadel-database
 docker compose up -d
 ```
 
 4.- Start zitadel server
 
-```
+```shell
 cd zitadel-server
 docker compose up -d
 ```
 
-5.- Start back end express
-
+5.- Sync your db schema
+```shell
+nx prisma-generate dao-prisma
+nx prisma-push dao-prisma
 ```
+
+6.- Start back end express
+
+```shell
 nx serve web-server
 ```
 
-6.- Start the front end
+7.- Start the front end
 
-```
+```shell
 nx serve front
 ```
 
